@@ -1,7 +1,10 @@
 class Inventario {
+    static id  = 0;
     constructor(){
         this.productos = [];
     }
+    
+
     getProductos = function () { 
         return this.productos;
     }
@@ -17,9 +20,26 @@ class Inventario {
     }
 
     addProducto = function(producto){
-        producto.id = this.productos.length + 1
+        Inventario.id++;
+        producto.id = Inventario.id;
         this.productos.push(producto);
         return producto;
+    }
+
+    updateProducto = function (id, productoNuevo) {
+        let producto = this.getProducto(id);
+        
+        producto.title = productoNuevo.title;
+        producto.price = productoNuevo.price;
+        producto.thumbnail = productoNuevo.thumbnail;
+        
+        return producto;
+        
+    }
+
+    deleteProducto = function(id){
+        let pos = this.productos.findIndex(producto => producto.id == id);
+        return this.productos.splice(pos,1)[0]; // splice() devuelve un arreglo de un solo elemento en este caso
     }
 }
 
